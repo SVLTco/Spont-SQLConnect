@@ -53,6 +53,10 @@ public class SQLConnection {
 
             this.s = conn.createStatement();
 
+            ResultSet r = s.executeQuery("USE users;");
+
+            System.out.printf("Base connection point initialized successfully at: " + this);
+
         } catch (Exception msee){
             msee.printStackTrace();
         }
