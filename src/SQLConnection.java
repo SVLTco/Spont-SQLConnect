@@ -15,7 +15,7 @@ public class SQLConnection {
     /**
     * Name of Default DB to connect to;
     */
-    private String DB = "users";
+    private String DB = "spont_users";
 
     /**
      * Base Connection point for server access;
@@ -43,7 +43,7 @@ public class SQLConnection {
      */
     public SQLConnection(String hostname, String username, String password){
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
             Properties connectionProps = new Properties();
             connectionProps.put("user", username);
@@ -53,7 +53,7 @@ public class SQLConnection {
 
             this.s = conn.createStatement();
 
-            ResultSet r = s.executeQuery("USE users;");
+            s.executeUpdate("USE users;");
 
             System.out.printf("Base connection point initialized successfully at: " + this);
 
@@ -80,6 +80,24 @@ public class SQLConnection {
             }
         }
         return true;
+    }
+
+    /**
+     * Get Statement
+     * @return the statement associated with this SQL instance
+
+     */
+    public Statement getStatement(){
+        return this.s;
+    }
+
+    /**
+     * Get Connection
+     * @return the socket connection associated with this SQL instance
+
+     */
+    public Connection getConnection(){
+        return this.conn;
     }
 
     /**
