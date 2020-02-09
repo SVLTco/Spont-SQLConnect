@@ -44,6 +44,7 @@ public class SQLWrite {
                 database.getStatement().executeUpdate("INSERT INTO Group_" + user.getUserID() + "_" + (user.getGroups().size() + 1) + " (userID) values (" + userIDs[i] + ");");
             }
             user.addGroup(new SQLGroup(user.getUserID(), groupName));
+            database.getStatement().executeUpdate("UPDATE user_data SET noOfGroups=" + user.getGroups().size() + "WHERE userID=" + user.getUserID());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,6 +56,26 @@ public class SQLWrite {
     public static boolean addFriend(SQLConnection database, SpontUser user, int userID) {
         try {
             database.getStatement().executeUpdate("INSERT INTO Friends_" + user.getUserID() + " (userID) values (userID)");
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean updatePosition(SQLConnection database, SpontUser user, float lat, float lon){
+        try {
+            database.getStatement().executeUpdate("UPDATE user_data SET lat = " + lat + ", lon = " + lon + " WHERE userID=" + user.getUserID());
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean updatePingStat(SQLConnection database, SpontUser user, int userID){
+        try {
+            database.getStatement().executeUpdate("UPDATE user_data SET pingingID=" + user.getUserID() + "WHERE userID=" + userID);
         } catch (Exception e){
             e.printStackTrace();
             return false;
