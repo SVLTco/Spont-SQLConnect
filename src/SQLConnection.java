@@ -53,9 +53,9 @@ public class SQLConnection {
 
             this.s = conn.createStatement();
 
-            s.executeUpdate("USE users;");
+            s.executeUpdate("USE spont_users;");
 
-            System.out.printf("Base connection point initialized successfully at: " + this);
+            System.out.printf("Base connection point initialized successfully at: " + this + "\n");
 
         } catch (Exception msee){
             msee.printStackTrace();
@@ -72,7 +72,7 @@ public class SQLConnection {
     public boolean closeConnection(){
         if(this.conn != null){
             try {
-
+                this.s.close();
                 this.conn.close();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
